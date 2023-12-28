@@ -63,6 +63,17 @@
         },
       };
 
+      const ball = {
+        w: 200,
+        h: 300,
+        r: 10,
+        draw: function () {
+          canvasCtx.beginPath();
+          canvasCtx.arc(this.w, this.h, this.r, 0, 2 * Math.PI, false);
+          canvasCtx.fill();
+        },
+      };
+
       function setup() {
         canvasEl.width = canvasCtx.width = field.w;
         canvasEl.height = canvasCtx.height = field.h;
@@ -77,12 +88,8 @@
         leftPaddle.draw();
         // desenha a raquete direita (maquina)
         rightPaddle.draw();
-
         // desenha a bolinha
-        canvasCtx.beginPath();
-        canvasCtx.arc(200, 300, 10, 0, 2 * Math.PI, false);
-        canvasCtx.fill();
-
+        ball.draw();
         // desenha o placar
         canvasCtx.font = "bold 30px Arial";
         canvasCtx.textAlign = "center";
