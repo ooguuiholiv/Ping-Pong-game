@@ -49,10 +49,22 @@
           220
         );
 
-        //desenha a bolinha
+        // desenha a bolinha
         canvasCtx.beginPath();
         canvasCtx.arc(200, 300, 10, 0, 2 * Math.PI, false);
         canvasCtx.fill();
+
+        // desenha o placar
+        canvasCtx.font = "bold 30px Arial";
+        canvasCtx.textAlign = "center";
+        canvasCtx.textBaseline = "top";
+        canvasCtx.fillStyle = "#01341a";
+        canvasCtx.fillText("1", window.innerWidth / 4, 50);
+        canvasCtx.fillText(
+          "1",
+          window.innerWidth / 4 + window.innerWidth / 2,
+          50
+        );
       }
       setup();
       draw();
