@@ -63,14 +63,35 @@
         },
       };
 
+      const score = {
+        human: 5,
+        computer: 0,
+        draw: function () {
+          canvasCtx.font = "bold 30px Arial";
+          canvasCtx.textAlign = "center";
+          canvasCtx.textBaseline = "top";
+          canvasCtx.fillStyle = "#01341a";
+          canvasCtx.fillText(this.human, field.w / 4, 50);
+          canvasCtx.fillText(this.computer, field.w / 4 + field.w / 2, 50);
+        },
+      };
+
       const ball = {
-        w: 200,
+        w: 100,
         h: 300,
         r: 10,
+        speed: 3,
+        _move: function () {
+          this.w += 1 * this.speed;
+          this.h += 1 * this.speed;
+        },
         draw: function () {
           canvasCtx.beginPath();
           canvasCtx.arc(this.w, this.h, this.r, 0, 2 * Math.PI, false);
+          canvasCtx.fillStyle = "#ffffff";
           canvasCtx.fill();
+
+          this._move();
         },
       };
 
@@ -88,22 +109,16 @@
         leftPaddle.draw();
         // desenha a raquete direita (maquina)
         rightPaddle.draw();
+        // desenha o placar
+        score.draw();
         // desenha a bolinha
         ball.draw();
-        // desenha o placar
-        canvasCtx.font = "bold 30px Arial";
-        canvasCtx.textAlign = "center";
-        canvasCtx.textBaseline = "top";
-        canvasCtx.fillStyle = "#01341a";
-        canvasCtx.fillText("1", window.innerWidth / 4, 50);
-        canvasCtx.fillText(
-          "1",
-          window.innerWidth / 4 + window.innerWidth / 2,
-          50
-        );
       }
+
       setup();
       draw();
+
+      window.setInterval(draw, 1000 / 60);
     </script>
   </body>
 </html>
