@@ -26,16 +26,28 @@
       }
 
       function draw() {
+        // desenha o campo
         canvasCtx.fillStyle = "#286047";
         canvasCtx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
+        // desenha a linha central
         canvasCtx.fillStyle = "#ffffff";
         const x = window.innerWidth / 2 - lineWidth / 2;
         const y = 0;
         const w = lineWidth;
         const h = window.innerHeight;
-
         canvasCtx.fillRect(x, y, w, h);
+
+        // desenha a raquete esquerda (usuário)
+        canvasCtx.fillRect(10, 200, lineWidth, 220);
+
+        // desenha a raquete direita (maquina)
+        canvasCtx.fillRect(
+          window.innerWidth - lineWidth - 10,
+          400,
+          lineWidth,
+          220
+        );
       }
       setup();
       draw();
