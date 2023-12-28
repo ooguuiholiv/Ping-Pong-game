@@ -48,6 +48,11 @@
           lineWidth,
           220
         );
+
+        //desenha a bolinha
+        canvasCtx.beginPath();
+        canvasCtx.arc(200, 300, 10, 0, 2 * Math.PI, false);
+        canvasCtx.fill();
       }
       setup();
       draw();
