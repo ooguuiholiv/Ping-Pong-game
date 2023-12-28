@@ -19,6 +19,7 @@
       const canvasEl = document.querySelector("canvas"),
         canvasCtx = canvasEl.getContext("2d");
       const lineWidth = 10;
+      const gapX = 10;
 
       const field = {
         w: window.innerWidth,
@@ -41,6 +42,27 @@
           canvasCtx.fillRect(x, y, w, h);
         },
       };
+
+      const leftPaddle = {
+        x: gapX,
+        y: 100,
+        w: line.w,
+        h: 200,
+        draw: function () {
+          canvasCtx.fillRect(this.x, this.y, this.w, this.h);
+        },
+      };
+
+      const rightPaddle = {
+        x: field.w - line.w - gapX,
+        y: 250,
+        w: line.w,
+        h: 200,
+        draw: function () {
+          canvasCtx.fillRect(this.x, this.y, this.w, this.h);
+        },
+      };
+
       function setup() {
         canvasEl.width = canvasCtx.width = field.w;
         canvasEl.height = canvasCtx.height = field.h;
@@ -49,19 +71,12 @@
       function draw() {
         // desenha o campo
         field.draw();
-        line.draw();
         // desenha a linha central
-
-        // desenha a raquete esquerda (usuário)
-        canvasCtx.fillRect(10, 200, lineWidth, 220);
-
+        line.draw();
+        // desenha a raquete esquerda
+        leftPaddle.draw();
         // desenha a raquete direita (maquina)
-        canvasCtx.fillRect(
-          window.innerWidth - lineWidth - 10,
-          400,
-          lineWidth,
-          220
-        );
+        rightPaddle.draw();
 
         // desenha a bolinha
         canvasCtx.beginPath();
