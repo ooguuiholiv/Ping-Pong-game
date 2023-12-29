@@ -62,8 +62,16 @@
         y: 250,
         w: line.w,
         h: 200,
+        speed: 2,
+        _speedUp: function () {
+          this.speed += 1;
+        },
         _move: function () {
-          this.y = ball.h;
+          if (this.y + this.h / 2 < ball.h + ball.r) {
+            this.y += this.speed;
+          } else {
+            this.y -= this.speed;
+          }
         },
         draw: function () {
           canvasCtx.fillRect(this.x, this.y, this.w, this.h);
@@ -147,6 +155,7 @@
         },
         _pointUp: function () {
           this._speedUp();
+          rightPaddle._speedUp();
           this.h = field.h / 2;
           this.w = field.w / 2;
         },
