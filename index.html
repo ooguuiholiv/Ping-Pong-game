@@ -62,8 +62,12 @@
         y: 250,
         w: line.w,
         h: 200,
+        _move: function () {
+          this.y = ball.h;
+        },
         draw: function () {
           canvasCtx.fillRect(this.x, this.y, this.w, this.h);
+          this._move();
         },
       };
 
