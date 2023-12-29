@@ -72,8 +72,14 @@
       };
 
       const score = {
-        human: 5,
+        human: 0,
         computer: 0,
+        _increaseHuman: function () {
+          this.human++;
+        },
+        _increaseComputer: function () {
+          this.computer++;
+        },
         draw: function () {
           canvasCtx.font = "bold 30px Arial";
           canvasCtx.textAlign = "center";
@@ -85,22 +91,60 @@
       };
 
       const ball = {
-        w: 100,
-        h: 300,
+        w: 0,
+        h: 0,
         r: 10,
-        speed: 3,
+        speed: 7,
         directionX: 1,
         directionY: 1,
         _calcPosition: function () {
+          // verifica se o jogador 1 fez ponto, (x > largura do campo)
+          if (this.w > field.w - this.r - rightPaddle.w - gapX) {
+            if (
+              this.h + this.r > rightPaddle.y &&
+              this.h - this.r < rightPaddle.y + rightPaddle.h
+            ) {
+              this._reverseX();
+            } else {
+              // pontuar o jogador 1
+              score._increaseHuman();
+              this._pointUp();
+            }
+          }
+
+          // verifica se o jogador 2 fez ponto, (x < 0)
+          if (this.w < this.r + leftPaddle.w + gapX) {
+            if (
+              this.h + this.r > leftPaddle.y &&
+              this.h - this.r < leftPaddle.y + leftPaddle.h
+            ) {
+              // rebate a bola invertendo o sinal de X
+              this._reverseX();
+            } else {
+              // pontua o jogador 2
+              score._increaseComputer();
+              this._pointUp();
+            }
+          }
+
+          // verifica as laterais superior e inferior do campo
           if (
             (this.h - this.r < 0 && this.directionY < 0) ||
             (this.h > field.h - this.r && this.directionY > 0)
           ) {
+            // rebate a bola invertendo o sinal do eixo Y
             this._reverseY();
           }
         },
         _reverseY: function () {
           this.directionY *= -1;
+        },
+        _reverseX: function () {
+          this.directionX *= -1;
+        },
+        _pointUp: function () {
+          this.h = field.h / 2;
+          this.w = field.w / 2;
         },
         _move: function () {
           this.w += this.directionX * this.speed;
