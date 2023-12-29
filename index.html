@@ -89,9 +89,22 @@
         h: 300,
         r: 10,
         speed: 3,
+        directionX: 1,
+        directionY: 1,
+        _calcPosition: function () {
+          if (
+            (this.h - this.r < 0 && this.directionY < 0) ||
+            (this.h > field.h - this.r && this.directionY > 0)
+          ) {
+            this._reverseY();
+          }
+        },
+        _reverseY: function () {
+          this.directionY *= -1;
+        },
         _move: function () {
-          this.w += 1 * this.speed;
-          this.h += 1 * this.speed;
+          this.w += this.directionX * this.speed;
+          this.h += this.directionY * this.speed;
         },
         draw: function () {
           canvasCtx.beginPath();
@@ -99,6 +112,7 @@
           canvasCtx.fillStyle = "#ffffff";
           canvasCtx.fill();
 
+          this._calcPosition();
           this._move();
         },
       };
