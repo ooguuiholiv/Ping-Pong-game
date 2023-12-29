@@ -45,11 +45,15 @@
 
       const leftPaddle = {
         x: gapX,
-        y: 100,
+        y: 0,
         w: line.w,
         h: 200,
+        _move: function () {
+          this.y = mouse.y - this.h / 2;
+        },
         draw: function () {
           canvasCtx.fillRect(this.x, this.y, this.w, this.h);
+          this._move();
         },
       };
 
@@ -95,6 +99,8 @@
         },
       };
 
+      const mouse = { x: 0, y: 0 };
+
       function setup() {
         canvasEl.width = canvasCtx.width = field.w;
         canvasEl.height = canvasCtx.height = field.h;
@@ -132,6 +138,11 @@
         animateFrame(main);
         draw();
       }
+
+      canvasEl.addEventListener("mousemove", function (e) {
+        mouse.x = e.pageX;
+        mouse.y = e.pageY;
+      });
 
       setup();
       main();
